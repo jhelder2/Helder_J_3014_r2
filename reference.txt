@@ -1,0 +1,15 @@
+References Used
+    
+    
+    Random Password in PHP:
+
+        https://stackoverflow.com/questions/6101956/generating-a-random-password-in-php
+
+
+    Hash password to store and verify password on login:
+
+        Hash: 
+            https://www.php.net/manual/en/function.password-verify.php
+       
+        Verify: 
+            https://www.php.net/manual/en/function.password-verify.php
