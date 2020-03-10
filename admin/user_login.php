@@ -21,18 +21,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
     <title>Welcome to Login page</title>
 </head>
 <body>
-    <?php echo !empty($message)?$message:' '; ?>
-    <form action="user_login.php" method="post">
-        <label>Username:</label><br>
-        <input type="text" name="username" value="" /><br>
+    <main>
+        <div class="text">
+            <h1>Log In</h1>
+            <?php echo !empty($message)?$message:' '; ?>
+            <form action="user_login.php" method="post">
+                <label>Username:</label><br>
+                <input type="text" name="username" value="" /><br>
 
-        <label>Password:</label><br>
-        <input type="text" name="password" value="" /><br>
+                <label>Password:</label><br>
+                <input type="text" name="password" value="" /><br>
 
-        <button name="submit">Submit</button>
-    </form>
+                <button name="submit">Submit</button>
+            </form>
+        </div>
+    </main>
 </body>
 </html>

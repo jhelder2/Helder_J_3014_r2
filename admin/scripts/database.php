@@ -4,7 +4,7 @@ class Database
     // Note: specify your own database credentials
     private $host = "localhost";
 
-    private $db_name = "db_r2";
+    private $db_name = "db_r3";
 
     private $username = "root";
 

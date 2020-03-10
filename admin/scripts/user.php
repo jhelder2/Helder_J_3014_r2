@@ -4,7 +4,7 @@
 
         $pdo = Database::getInstance()->getConnection();
     //check email
-        $check_exist_query = 'SELECT COUNT(*) FROM `tbl_user` WHERE user_email = :useremail';
+        $check_exist_query = 'SELECT COUNT(*) FROM `tbl_users` WHERE user_email = :useremail';
         $user_set = $pdo->prepare($check_exist_query);
         $user_set->execute(
             array(
@@ -20,7 +20,7 @@
 
     //Count any Users that have the same first and last name //
             $pdo = Database::getInstance()->getConnection();
-            $check_name_query = 'SELECT COUNT(*) FROM `tbl_user` WHERE user_fname = :fname AND user_lname = :lname';
+            $check_name_query = 'SELECT COUNT(*) FROM `tbl_users` WHERE user_fname = :fname AND user_lname = :lname';
             $name_number = $pdo->prepare($check_name_query);
             $name_number->execute(
                 array(
@@ -54,7 +54,7 @@
             ];
 
     //insert data into table //
-            $newuser = 'INSERT INTO tbl_user (user_id, user_name, user_pass, user_fname, user_lname, user_email, user_reg) VALUES (DEFAULT,"'. $username.'","'.$hashed_password.'","'.$fname.'","'.$lname.'","'.$email.'", CURRENT_TIMESTAMP)';
+            $newuser = 'INSERT INTO tbl_users (user_id, user_name, user_pass, user_fname, user_lname, user_email, user_reg) VALUES (DEFAULT,"'. $username.'","'.$hashed_password.'","'.$fname.'","'.$lname.'","'.$email.'", CURRENT_TIMESTAMP)';
             $user_build = $pdo->prepare($newuser);
             $user_build->execute($data);
         
@@ -63,16 +63,25 @@
             $subject = "Helder_J_3014_r2 Login Credentials";
             $credentials = "Username: \n $username \nPassword: \n $password";
             $link = "http://localhost/Helder_J_3014_r2/admin/user_login.php";
-            $headers = "From: admin@Helder_J_3014_r2.com";
-            $content = "Hello $fname $lname! \n\nYour account is ready to login at:\n $link\n\nYOUR CREDENTIALS:\n\n$credentials";
+            $headers = "From: admin@email.com";
+            $content = "Hello $fname $lname! \n\nYou have 48 hours to login to your new account!:\n $link\n\nYOUR CREDENTIALS:\n\n$credentials";
+
 
 //THIS IS WHERE IT MAILS BUT I COMMENTTED IT OUT SO I WOULDN'T GET ERRORS
+
+
             // mail($to,$subject,$content,$headers);
+            // return 'User Created!';
+
+
 
 //THIS IS THE FAKE EMAIL SO YOU CAN SEE HOW IT PRINTS OUT
-            $fakeemail = "\n\nTo:$to \nSubject:$subject \n$headers\n\n$content\n\n";
 
+
+            $fakeemail = "\n\nTo:$to \nSubject:$subject \n$headers\n\n$content\n\n";
             return 'User Created!'.var_dump($fakeemail);
+
+
     
         };       
 

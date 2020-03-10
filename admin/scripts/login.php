@@ -4,7 +4,7 @@ function login($username, $password){
     $pdo = Database::getInstance()->getConnection();
 
 //check if username exists
-    $check_exist_query = 'SELECT COUNT(*) FROM `tbl_user` WHERE user_name = :username';
+    $check_exist_query = 'SELECT COUNT(*) FROM `tbl_users` WHERE user_name = :username';
     $user_set = $pdo->prepare($check_exist_query);
     $user_set->execute(
         array(
@@ -18,7 +18,7 @@ function login($username, $password){
         if($username != 'admin'){
 
 //Verify if userinput password matches Hashed password//
-            $get_the_hash = 'SELECT user_pass FROM `tbl_user` WHERE user_name = :username';
+            $get_the_hash = 'SELECT user_pass FROM `tbl_users` WHERE user_name = :username';
             $user_hash = $pdo->prepare($get_the_hash);
             $user_hash->execute(
                 array(
@@ -34,7 +34,7 @@ function login($username, $password){
             };
 
     //Check if pass/user match
-            $check_exist_query = 'SELECT * FROM `tbl_user` WHERE user_name = :username';
+            $check_exist_query = 'SELECT * FROM `tbl_users` WHERE user_name = :username';
             $check_exist_query .=' AND user_pass=:password';
             $user_match = $pdo->prepare($check_exist_query);
             $user_match->execute(
@@ -47,7 +47,8 @@ function login($username, $password){
             while($founduser = $user_match->fetch(PDO::FETCH_ASSOC)){
                 $id = $founduser['user_id'];
                 $_SESSION['user_id'] = $id;
-                $_SESSION['user_name'] = $founduser['user_fname'];
+                $_SESSION['user_fname'] = $founduser['user_fname'];
+                $_SESSION['user_lname'] = $founduser['user_lname'];
             }
 
             if(isset($id)){
@@ -55,7 +56,7 @@ function login($username, $password){
             }
 //IF ADMIN//
         } else {
-            $check_exist_query = 'SELECT * FROM `tbl_user` WHERE user_name = :username';
+            $check_exist_query = 'SELECT * FROM `tbl_users` WHERE user_name = :username';
             $check_exist_query .=' AND user_pass=:password';
             $user_match = $pdo->prepare($check_exist_query);
             $user_match->execute(
@@ -68,7 +69,9 @@ function login($username, $password){
             while($founduser = $user_match->fetch(PDO::FETCH_ASSOC)){
                 $id = $founduser['user_id'];
                 $_SESSION['user_id'] = $id;
-                $_SESSION['user_name'] = $founduser['user_fname'];
+                $_SESSION['user_fname'] = $founduser['user_fname'];
+                $_SESSION['user_lname'] = ' ';
+                $_SESSION['admin_link'] = '<a href="./admin_createuser.php">Create User</a>';
             }
 
             if(isset($id)){
